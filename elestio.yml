@@ -51,5 +51,5 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Lemmy Admin"
-    login: "[ADMIN_EMAIL]"
+    login: "admin"
     password: "[ADMIN_PASSWORD]"
