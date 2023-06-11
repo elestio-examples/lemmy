@@ -1,7 +1,6 @@
 set env vars
 set -o allexport; source .env; set +o allexport;
 
-apt install jq -y
 
 mkdir -p ./pictrs
 chown -R 991:991 ./pictrs
