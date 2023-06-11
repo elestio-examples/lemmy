@@ -5,6 +5,8 @@ set -o allexport; source .env; set +o allexport;
 mkdir -p ./pictrs
 chown -R 991:991 ./pictrs
 
+
+cat /opt/elestio/startPostfix.sh >post.txt
 filename="./post.txt"
 
 SMTP_LOGIN=""
@@ -38,3 +40,5 @@ sed -i "s~SMTP_LOGIN~${SMTP_LOGIN}~g" ./lemmy.hjson
 sed -i "s~SMTP_PASSWORD~${SMTP_PASSWORD}~g" ./lemmy.hjson
 sed -i "s~SMTP_FROM~${SMTP_LOGIN}~g" ./lemmy.hjson
 sed -i "s~SMTP_AUTH_STRATEGY~${SMTP_AUTH_STRATEGY}~g" ./lemmy.hjson
+
+rm post.txt
