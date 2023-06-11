@@ -6,7 +6,7 @@ mkdir -p ./pictrs
 chown -R 991:991 ./pictrs
 
 
-cat /opt/elestio/startPostfix.sh >post.txt
+cat /opt/elestio/startPostfix.sh > post.txt
 filename="./post.txt"
 
 SMTP_LOGIN=""
@@ -19,9 +19,9 @@ while IFS= read -r line; do
 
   # Loop through each value and store in respective variables
   while IFS= read -r value; do
-    if [[ $value == SMTP_LOGIN=* ]]; then
+    if [[ $value == RELAYHOST_USERNAME=* ]]; then
       SMTP_LOGIN=${value#*=}
-    elif [[ $value == SMTP_PASSWORD=* ]]; then
+    elif [[ $value == RELAYHOST_PASSWORD=* ]]; then
       SMTP_PASSWORD=${value#*=}
     fi
   done <<< "$values"
