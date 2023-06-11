@@ -1,19 +1,8 @@
 version: "3.3"
 
-networks:
-  # communication to web and clients
-  lemmyexternalproxy:
-  # communication between lemmy services
-  lemmyinternal:
-    driver: bridge
-    internal: true
-
 services:
   proxy:
     image: nginx:1-alpine
-    networks:
-      - lemmyinternal
-      - lemmyexternalproxy
     ports:
       # only ports facing any connection from outside
       - 172.17.0.1:6580:80
@@ -30,8 +19,6 @@ services:
   lemmy:
     image: dessalines/lemmy:0.17.3
     hostname: lemmy
-    networks:
-      - lemmyinternal
     restart: always
     environment:
       - RUST_LOG="warn,lemmy_server=info,lemmy_api=info,lemmy_api_common=info,lemmy_api_crud=info,lemmy_apub=info,lemmy_db_schema=info,lemmy_db_views=info,lemmy_db_views_actor=info,lemmy_db_views_moderator=info,lemmy_routes=info,lemmy_utils=info,lemmy_websocket=info"
@@ -43,8 +30,6 @@ services:
 
   lemmy-ui:
     image: dessalines/lemmy-ui:0.17.3
-    networks:
-      - lemmyinternal
     environment:
       # this needs to match the hostname defined in the lemmy service
       - LEMMY_UI_LEMMY_INTERNAL_HOST=lemmy:8536
@@ -61,8 +46,6 @@ services:
     hostname: pictrs
     # we can set options to pictrs like this, here we set max. image size and forced format for conversion
     # entrypoint: /sbin/tini -- /usr/local/bin/pict-rs -p /mnt -m 4 --image-format webp
-    networks:
-      - lemmyinternal
     environment:
       - PICTRS__API_KEY=${API_KEY}
     user: 991:991
@@ -74,8 +57,6 @@ services:
     image: postgres:15-alpine
     # this needs to match the database host in lemmy.hson
     hostname: postgres
-    networks:
-      - lemmyinternal
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
