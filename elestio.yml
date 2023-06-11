@@ -23,13 +23,11 @@ environments:
   - key: "BASE_URL"
     value: "https://[CI_CD_DOMAIN]"
   - key: "SMTP_HOST"
-    value: "172.17.0.1"
+    value: "tuesday.mxrouting.net"
   - key: "SMTP_PORT"
     value: "25"
   - key: "SMTP_AUTH_STRATEGY"
-    value: "none"
-  - key: "SMTP_FROM_EMAIL"
-    value: "[DOMAIN]@vm.elestio.app"
+    value: "starttls"
 
 config:
   runTime: "dockerCompose"
