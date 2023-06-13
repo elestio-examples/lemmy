@@ -22,13 +22,13 @@ You can open Lemmy UI here:
 
 By default we setup a CNAME on elestio.app domain, but probably you will want yo have your own domain.
 
-Step1: add your domain in Elestio dashboard as explained here:
+***Step1:*** add your domain in Elestio dashboard as explained here:
 
     https://docs.elest.io/books/security/page/custom-domain-and-automated-encryption-ssltls
 
-Step2: you must set your custom domain in `/opt/app/config.hjson` (you can do that with File editor of VSCode in our tools tab)
+***Step2:*** you must set your custom domain in `/opt/app/config.hjson` (you can do that with File editor of VSCode in our tools tab)
 
-Step3: you must reset the Lemmy instance DB, you can do that with those commands, connect over SSH and run this:
+***Step3:*** you must reset the Lemmy instance DB, you can do that with those commands, connect over SSH and run this:
 
     cd /opt/app;
     docker-compose down;
