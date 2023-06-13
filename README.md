@@ -34,6 +34,8 @@ By default we setup a CNAME on elestio.app domain, but probably you will want yo
     docker-compose down;
     rm -rf ./pgdata;
     rm -rf ./pictrs;
+    mkdir -p ./pictrs
+    chown -R 991:991 ./pictrs
     docker-compose up -d;
 
 You will start over with a fresh instance of Lemmy directly configured with the correct custom domain name and federation will work as expected
