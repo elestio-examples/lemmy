@@ -20,7 +20,7 @@ You can open Lemmy UI here:
 
 # Custom domain instructions (IMPORTANT)
 
-By default we setup a CNAME on elestio.app domain, but probably you will want yo have your own domain.
+By default we setup a CNAME on elestio.app domain, but probably you will want to have your own domain.
 
 ***Step1:*** add your domain in Elestio dashboard as explained here:
 
