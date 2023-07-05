@@ -30,7 +30,7 @@ By default we setup a CNAME on elestio.app domain, but probably you will want to
 Open Elestio dashboard > Service overview > click on UPDATE CONFIG button > Env tab
 there update `DOMAIN` & `BASE_URL` with your real domain
 
-***Step3:*** you must set your custom domain in `/opt/app/config.hjson` (you can do that with File editor of VSCode in our tools tab)
+***Step3:*** you must set your custom domain in `/opt/app/lemmy.hjson` (you can do that with File editor of VSCode in our tools tab)
 
 ***Step4:*** you must reset the Lemmy instance DB, you can do that with those commands, connect over SSH and run this:
 
