@@ -1,0 +1,58 @@
+{
+  # for more info about the config, check out the documentation
+  # https://join-lemmy.org/docs/en/administration/configuration.html
+  # only few config options are covered in this example config
+
+  setup: {
+    # username for the admin user
+    admin_username: "admin"
+    # password for the admin user
+    admin_password: "PASSWORD_TO_CHANGE"
+    # name of the site (can be changed later)
+    site_name: "mylemmyinstance"
+    admin_email: "ADMIN_EMAIL"
+  }
+
+  # the domain name of your instance (eg "lemmy.ml")
+  hostname: "DOMAIN_TO_CHANGE"
+  # address where lemmy should listen for incoming requests
+  bind: "0.0.0.0"
+  # port where lemmy should listen for incoming requests
+  port: 8536
+  # Whether the site is available over TLS. Needs to be true for federation to work.
+  tls_enabled: true
+
+  # pictrs host
+  pictrs: {
+    url: "http://pictrs:8080/"
+    # api_key: "API_KEY_TO_CHANGE"
+  }
+
+  # Email sending configuration. All options except login/password are mandatory
+  email: {
+    # Hostname and port of the smtp server
+    smtp_server: "SMTP_HOST:SMTP_PORT"
+    smtp_login: "SMTP_LOGIN"
+    smtp_password: "SMTP_PASSWORD"
+    # Address to send emails from, eg "noreply@your-instance.com"
+    smtp_from_address: "SMTP_FROM"
+    # Whether or not smtp connections should use tls. Can be none, tls, or starttls
+    tls_type: "SMTP_AUTH_STRATEGY"
+  }
+
+  # settings related to the postgresql database
+  database: {
+    # name of the postgres database for lemmy
+    database: "lemmy"
+    # username to connect to postgres
+    user: "POSTGRES_USER"
+    # password to connect to postgres
+    password: "POSTGRES_PASSWORD"
+    # host where postgres is running
+    host: "postgres"
+    # port where postgres can be accessed
+    port: 5432
+    # maximum number of active sql connections
+    pool_size: 5
+  }
+}
