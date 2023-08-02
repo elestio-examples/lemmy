@@ -4,6 +4,12 @@ set -o allexport; source .env; set +o allexport;
 
 mkdir -p ./pictrs
 chown -R 991:991 ./pictrs
+mkdir -p ./nginx.conf
+chown 700 ./nginx.conf
+mkdir -p ./lemmy.hjson
+chown 700 ./lemmy.hjson
+mkdir -p ./pgdata
+chown 700 ./pgdata
 
 
 cat /opt/elestio/startPostfix.sh > post.txt
