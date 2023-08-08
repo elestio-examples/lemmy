@@ -119,10 +119,20 @@ Here are some example snippets to help you get started creating a container.
         environment:
           - POSTGRES_USER=${POSTGRES_USER}
           - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-          - POSTGRES_DB=lemmy
+          - POSTGRES_DB=${POSTGRES_DB}
         volumes:
           - ./pgdata:/var/lib/postgresql/data
         restart: always
+
+### Environment variables
+
+|       Variable       | Value (example) |
+| :------------------: | :-------------: |
+| SOFTWARE_VERSION_TAG |     latest      |
+|       API_KEY        |     api-key     |
+|  POSTGRES_PASSWORD   |    password     |
+|    POSTGRES_USER     |    user-name    |
+|     POSTGRES_DB      |     db-name     |
 
 # Maintenance
 
