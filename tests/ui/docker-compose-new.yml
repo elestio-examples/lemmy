@@ -13,13 +13,14 @@ services:
       - lemmy-ui
 
   lemmy:
-    image: elestio4test/lemmy:${SOFTWARE_VERSION_TAG}
+    image: dessalines/lemmy:0.17.3
+    hostname: lemmy
     restart: always
     environment:
       - RUST_LOG="warn"
       - LEMMY_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     volumes:
-      - ${folderName}/lemmy.hjson:/config/config.hjson:Z
+      - ./lemmy.hjson:/config/config.hjson:Z
     depends_on:
       - postgres
       - pictrs
