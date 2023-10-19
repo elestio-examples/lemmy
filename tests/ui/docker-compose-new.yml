@@ -16,17 +16,22 @@ services:
     image: dessalines/lemmy:0.17.3
     hostname: lemmy
     restart: always
+    env_file:
+      - ./.env
     environment:
       - RUST_LOG="warn"
+      - RUST_BACKTRACE=1
       - LEMMY_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     volumes:
-      - ./lemmy.hjson:/config/config.hjson:Z
+      - ${folderName}/lemmy.hjson:/config/config.hjson:Z
     depends_on:
       - postgres
       - pictrs
 
   lemmy-ui:
     image: elestio4test/lemmy-ui:${SOFTWARE_VERSION_TAG}
+    env_file:
+      - ./.env
     environment:
       - LEMMY_UI_LEMMY_INTERNAL_HOST=lemmy:8536
       - LEMMY_UI_LEMMY_EXTERNAL_HOST=localhost:1236
@@ -52,6 +57,8 @@ services:
   postgres:
     image: docker.io/postgres:15-alpine
     hostname: postgres
+    env_file:
+      - ./.env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
