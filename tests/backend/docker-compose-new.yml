@@ -4,7 +4,7 @@ services:
   proxy:
     image: nginx:1-alpine
     ports:
-      - "172.17.0.1:6580:8536"
+      - "172.17.0.1:6580:80"
     volumes:
       - ${folderName}/nginx.conf:/etc/nginx/nginx.conf:ro,Z
     restart: always
@@ -14,9 +14,13 @@ services:
 
   lemmy:
     image: elestio4test/lemmy:${SOFTWARE_VERSION_TAG}
+    hostname: lemmy
     restart: always
+    env_file:
+      - ./.env
     environment:
       - RUST_LOG="warn"
+      - RUST_BACKTRACE=1
       - LEMMY_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     volumes:
       - ${folderName}/lemmy.hjson:/config/config.hjson:Z
@@ -25,7 +29,9 @@ services:
       - pictrs
 
   lemmy-ui:
-    image: dessalines/lemmy-ui::0.17.3
+    image: dessalines/lemmy-ui:0.17.3
+    env_file:
+      - ./.env
     environment:
       - LEMMY_UI_LEMMY_INTERNAL_HOST=lemmy:8536
       - LEMMY_UI_LEMMY_EXTERNAL_HOST=localhost:1236
@@ -36,6 +42,7 @@ services:
 
   pictrs:
     image: asonix/pictrs:0.3.1
+    user: 0:0
     hostname: pictrs
     environment:
       - PICTRS__API_KEY=${API_KEY}
@@ -48,6 +55,8 @@ services:
   postgres:
     image: elestio/postgres:15
     hostname: postgres
+    env_file:
+      - ./.env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
