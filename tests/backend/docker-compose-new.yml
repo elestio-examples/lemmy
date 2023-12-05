@@ -36,10 +36,7 @@ services:
 
   pictrs:
     image: asonix/pictrs:0.3.1
-    # this needs to match the pictrs url in lemmy.hjson
     hostname: pictrs
-    # we can set options to pictrs like this, here we set max. image size and forced format for conversion
-    # entrypoint: /sbin/tini -- /usr/local/bin/pict-rs -p /mnt -m 4 --image-format webp
     environment:
       - PICTRS__API_KEY=${API_KEY}
     depends_on: 
@@ -49,7 +46,7 @@ services:
     restart: always
 
   postgres:
-    image: docker.io/postgres:15-alpine
+    image: elestio/postgres:15
     hostname: postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}

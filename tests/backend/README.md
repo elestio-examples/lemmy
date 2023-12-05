@@ -63,13 +63,9 @@ Here are some example snippets to help you get started creating a container.
       proxy:
         image: nginx:1-alpine
         ports:
-          # only ports facing any connection from outside
-          - 172.17.0.1:6580:80
+          - "172.17.0.1:6580:8536"
         volumes:
-          - ./nginx.conf:/etc/nginx/nginx.conf:ro,Z
-          # setup your certbot and letsencrypt config
-          # - ./certbot:/var/www/certbot
-          # - ./letsencrypt:/etc/letsencrypt/live
+          - ${folderName}/nginx.conf:/etc/nginx/nginx.conf:ro,Z
         restart: always
         depends_on:
           - pictrs
@@ -77,12 +73,12 @@ Here are some example snippets to help you get started creating a container.
 
       lemmy:
         image: elestio4test/lemmy:${SOFTWARE_VERSION_TAG}
-        hostname: lemmy
         restart: always
         environment:
-          - RUST_LOG="warn,lemmy_server=info,lemmy_api=info,lemmy_api_common=info,lemmy_api_crud=info,lemmy_apub=info,lemmy_db_schema=info,lemmy_db_views=info,lemmy_db_views_actor=info,lemmy_db_views_moderator=info,lemmy_routes=info,lemmy_utils=info,lemmy_websocket=info"
+          - RUST_LOG="warn"
+          - LEMMY_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
         volumes:
-          - ./lemmy.hjson:/config/config.hjson:Z
+          - ${folderName}/lemmy.hjson:/config/config.hjson:Z
         depends_on:
           - postgres
           - pictrs
@@ -90,38 +86,33 @@ Here are some example snippets to help you get started creating a container.
       lemmy-ui:
         image: dessalines/lemmy-ui:${SOFTWARE_VERSION_TAG}
         environment:
-          # this needs to match the hostname defined in the lemmy service
           - LEMMY_UI_LEMMY_INTERNAL_HOST=lemmy:8536
-          # set the outside hostname here
           - LEMMY_UI_LEMMY_EXTERNAL_HOST=localhost:1236
-          - LEMMY_HTTPS=true
+          - LEMMY_UI_HTTPS=true
         depends_on:
           - lemmy
         restart: always
 
       pictrs:
         image: asonix/pictrs:0.3.1
-        # this needs to match the pictrs url in lemmy.hjson
         hostname: pictrs
-        # we can set options to pictrs like this, here we set max. image size and forced format for conversion
-        # entrypoint: /sbin/tini -- /usr/local/bin/pict-rs -p /mnt -m 4 --image-format webp
         environment:
           - PICTRS__API_KEY=${API_KEY}
-        user: 991:991
+        depends_on: 
+          - postgres
         volumes:
-          - ./pictrs:/mnt
+          - ./volumes/pictrs:/mnt
         restart: always
 
       postgres:
-        image: postgres:15-alpine
-        # this needs to match the database host in lemmy.hson
+        image: elestio/postgres:15
         hostname: postgres
         environment:
           - POSTGRES_USER=${POSTGRES_USER}
           - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
           - POSTGRES_DB=${POSTGRES_DB}
         volumes:
-          - ./pgdata:/var/lib/postgresql/data
+          - ${folderName}/pgdata:/var/lib/postgresql/data:Z
         restart: always
 
 ### Environment variables
