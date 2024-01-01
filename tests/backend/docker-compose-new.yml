@@ -4,7 +4,8 @@ services:
   proxy:
     image: nginx:1-alpine
     ports:
-      - "172.17.0.1:6580:80"
+      - "172.17.0.1:1236:1236"
+      - "172.17.0.1:8536:8536"
     volumes:
       - ${folderName}/nginx.conf:/etc/nginx/nginx.conf:ro,Z
     restart: always
