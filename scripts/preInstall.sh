@@ -49,4 +49,3 @@ sed -i "s~SMTP_AUTH_STRATEGY~starttls~g" ./lemmy.hjson
 
 rm post.txt
 
-sed -i "s~DOMAIN_TO_CHANGE~${DOMAIN}~g" ./docker-compose.yml
