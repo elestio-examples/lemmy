@@ -23,7 +23,7 @@ environments:
   - key: "BASE_URL"
     value: "https://[CI_CD_DOMAIN]"
   - key: "SOFTWARE_VERSION_TAG"
-    value: "0.19.3"
+    value: "0.19.4"
 config:
   runTime: "dockerCompose"
   version: ""
