@@ -39,6 +39,8 @@ services:
     depends_on:
       - lemmy
     restart: always
+    extra_hosts:
+      - "DOMAIN_TO_CHANGE:172.17.0.1"
 
   pictrs:
     image: asonix/pictrs:0.3.1
