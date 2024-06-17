@@ -43,13 +43,19 @@ services:
       - "DOMAIN_TO_CHANGE:172.17.0.1"
 
   pictrs:
-    image: asonix/pictrs:0.3.1
+    image: asonix/pictrs:0.5.16
     # this needs to match the pictrs url in lemmy.hjson
     hostname: pictrs
     # we can set options to pictrs like this, here we set max. image size and forced format for conversion
     # entrypoint: /sbin/tini -- /usr/local/bin/pict-rs -p /mnt -m 4 --image-format webp
     environment:
       - PICTRS__API_KEY=${API_KEY}
+      - RUST_BACKTRACE=full
+      - PICTRS__MEDIA__VIDEO_CODEC=vp9
+      - PICTRS__MEDIA__GIF__MAX_WIDTH=256
+      - PICTRS__MEDIA__GIF__MAX_HEIGHT=256
+      - PICTRS__MEDIA__GIF__MAX_AREA=65536
+      - PICTRS__MEDIA__GIF__MAX_FRAME_COUNT=400
     user: 991:991
     volumes:
       - ./pictrs:/mnt
